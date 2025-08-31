@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Bewerbung für den Discord Server</title>
+  <style>
+    body { font-family: Arial; background: #1e1e2f; color: white; text-align: center; }
+    form { background: #2b2b3d; padding: 20px; border-radius: 10px; width: 300px; margin: auto; }
+    input, textarea { width: 90%; margin: 10px 0; padding: 10px; border-radius: 5px; border: none; }
+    button { background: #5865F2; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #4752C4; }
+  </style>
+</head>
+<body>
+  <h1>Discord Bewerbung</h1>
+  <form id="appForm">
+    <input type="text" id="username" placeholder="Dein Discord-Name" required><br>
+    <textarea id="reason" placeholder="Warum willst du beitreten?" required></textarea><br>
+    <button type="submit">Bewerbung absenden</button>
+  </form>
+
+  <script>
+    const webhookURL = "https://discord.com/api/webhooks/1411588038605144135/fGzTRKY7mw73KV4VGpOVcmuAXK0Kf8JEsAGLY92mXebBN7kNY1XbLOyBAlqJS7ahXCZD";
+
+    document.getElementById("appForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      const username = document.getElementById("username").value;
+      const reason = document.getElementById("reason").value;
+
+      fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: `📩 Neue Bewerbung!\n👤 Name: ${username}\n💬 Grund: ${reason}`
+        })
+      })
+      .then(res => alert("Bewerbung abgeschickt!"))
+      .catch(err => alert("Fehler beim Senden."));
+    });
+  </script>
+</body>
+</html>
